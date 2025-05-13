@@ -34,10 +34,10 @@ A Python-based AI-powered Snake game that uses the A* search algorithm to autono
 3. Run the game
    ```bash
     python snake_ai.py
-📸 Screenshots
+Screenshots
 ![Screenshot 2025-04-29 150700](https://github.com/user-attachments/assets/17768f69-b429-4b32-b56c-f23403a5d783)
 
-🎯 Future Improvements
+## Future Improvements
 Add a scoring system and UI.
 
 Implement more advanced AI (e.g. Hamiltonian cycles, BFS fallback).
@@ -46,8 +46,8 @@ Add a manual vs. AI play mode.
 
 Refactor into an object-oriented design for scalability.
 
-📄 License
+## License
 This project is open source under the MIT License.
 
-👨‍💻 Author
+## Author
 Aldo Nunez
