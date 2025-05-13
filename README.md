@@ -22,7 +22,7 @@ A Python-based AI-powered Snake game that uses the A* search algorithm to autono
 - **Pygame** for graphics and event handling
 - **Heapq** for priority queue management in A* implementation
 
-## 📦 Installation
+## Installation
 
 1. Clone this repository:
    ```bash
