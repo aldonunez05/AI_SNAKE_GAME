@@ -26,7 +26,7 @@ A Python-based AI-powered Snake game that uses the A* search algorithm to autono
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/ai-snake-game.git
+   git clone https://github.com/aldonunez05/ai-snake-game.git
    cd ai-snake-game
 2. Install dependencies
    ```bash
