@@ -31,7 +31,17 @@ A Python-based AI-powered Snake game that uses the A* search algorithm to autono
 2. Install dependencies
    ```bash
     pip install pygame
-3. Run the game
+   ```
+   Ubuntu based systems:
+   
+   ```bash
+    sudo apt-install python3-pygame
+   ```
+
+   Arch based systems:
+   ```bash
+   sudo pacman -S python3-pygame
+4. Run the game
    ```bash
     python snake_ai.py
 Screenshots
