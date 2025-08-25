@@ -32,7 +32,7 @@ A Python-based AI-powered Snake game that uses the A* search algorithm to autono
    ```bash
     pip install pygame
    ```
-   Ubuntu based systems:
+   Debian based systems:
    
    ```bash
     sudo apt-install python3-pygame
