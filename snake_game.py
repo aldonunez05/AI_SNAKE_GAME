@@ -4,29 +4,23 @@ import pygame
 import random
 import heapq
 
-# Initialize pygame
 pygame.init()
 
-# Screen dimensions
 WIDTH, HEIGHT = 500, 500
 CELL_SIZE = 20
 GRID_WIDTH = WIDTH // CELL_SIZE
 GRID_HEIGHT = HEIGHT // CELL_SIZE
 
-# Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
-# Directions
 DIRECTIONS = {"UP": (0, -1), "DOWN": (0, 1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
 
-# Initialize screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("AI Snake Game")
 
-# Snake and food
 snake = [(5, 5)]
 direction = "RIGHT"
 food = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
@@ -65,7 +59,6 @@ def a_star_path(start, goal, obstacles):
     path.reverse()
     return path
 
-# AI Move Function
 def get_next_move():
     path = a_star_path(snake[0], food, set(snake))
     if path:
@@ -75,21 +68,17 @@ def get_next_move():
                 return key
     return direction  # Default to current direction if no path
 
-# Main Loop
 clock = pygame.time.Clock()
 running = True
 while running:
     screen.fill(BLACK)
     
-    # Handle events (e.g., window closing)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
     
-    # AI determines the best move
     direction = get_next_move()
     
-    # Move snake
     new_head = (snake[0][0] + DIRECTIONS[direction][0], snake[0][1] + DIRECTIONS[direction][1])
     if new_head in snake or not (0 <= new_head[0] < GRID_WIDTH and 0 <= new_head[1] < GRID_HEIGHT):
         print("Game Over!")
@@ -98,20 +87,19 @@ while running:
         snake.insert(0, new_head)
         if new_head == food:
             food = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+            while food in snake:
+                food = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
         else:
             snake.pop()
     
-    # Draw food
     pygame.draw.rect(screen, RED, (food[0] * CELL_SIZE, food[1] * CELL_SIZE, CELL_SIZE, CELL_SIZE))
     
-    # Draw snake
+    
     for segment in snake:
         pygame.draw.rect(screen, GREEN, (segment[0] * CELL_SIZE, segment[1] * CELL_SIZE, CELL_SIZE, CELL_SIZE))
     
-    # Update display
     pygame.display.flip()
 
-    # Control the frame rate (10 frames per second)
     clock.tick(10)
 
 pygame.quit()
