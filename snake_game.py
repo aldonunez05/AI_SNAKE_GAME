@@ -21,9 +21,13 @@ DIRECTIONS = {"UP": (0, -1), "DOWN": (0, 1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("AI Snake Game")
 
+score = 0
+
 snake = [(5, 5)]
 direction = "RIGHT"
 food = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+
+font = pygame.font.SysFont('Arial', 40)
 
 # A* Pathfinding Function
 def heuristic(a, b):
@@ -86,6 +90,7 @@ while running:
     else:
         snake.insert(0, new_head)
         if new_head == food:
+            score += 1
             food = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
             while food in snake:
                 food = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
@@ -103,3 +108,6 @@ while running:
     clock.tick(10)
 
 pygame.quit()
+
+with open('scores.txt', 'w') as f:
+    f.write(str(score) + '\n')
