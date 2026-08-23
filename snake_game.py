@@ -109,5 +109,5 @@ while running:
 
 pygame.quit()
 
-with open('scores.txt', 'w') as f:
+with open('snake_scores.txt', 'a') as f:
     f.write(str(score) + '\n')
