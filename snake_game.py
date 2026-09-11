@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # pylint: disable=no-member
 
 import pygame
@@ -85,7 +86,7 @@ while running:
     
     new_head = (snake[0][0] + DIRECTIONS[direction][0], snake[0][1] + DIRECTIONS[direction][1])
     if new_head in snake or not (0 <= new_head[0] < GRID_WIDTH and 0 <= new_head[1] < GRID_HEIGHT):
-        print("Game Over!")
+        print(f"Game Over! Score: {score}")
         running = False
     else:
         snake.insert(0, new_head)
