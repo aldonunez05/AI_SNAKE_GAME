@@ -64,14 +64,55 @@ def a_star_path(start, goal, obstacles):
     path.reverse()
     return path
 
+def flood_fill_area(start, obstacles):
+    visited = {start}
+    queue = [start]
+    while queue:
+        current = queue.pop()
+        for move in DIRECTIONS.values():
+            neighbor = (current[0] + move[0], current[1] + move[1])
+            if (0 <= neighbor[0] < GRID_WIDTH and 0 <= neighbor[1] < GRID_HEIGHT and
+                    neighbor not in obstacles and neighbor not in visited):
+                visited.add(neighbor)
+                queue.append(neighbor)
+    return len(visited)
+
+def simulate_eating(snake_body, path, target_food):
+    sim = list(snake_body)
+    for step in path:
+        sim.insert(0, step)
+        if step != target_food:
+            sim.pop()
+    return sim
+
+def is_path_safe(snake_body, target_food, path):
+    sim = simulate_eating(snake_body, path, target_food)
+    tail = sim[-1]
+    body_without_tail = set(sim[:-1])
+    return bool(a_star_path(sim[0], tail, body_without_tail))
+
+def safest_move(snake_body):
+    body_without_tail = set(snake_body[:-1])
+    best_move = direction
+    best_area = -1
+    for key, move in DIRECTIONS.items():
+        neighbor = (snake_body[0][0] + move[0], snake_body[0][1] + move[1])
+        if (0 <= neighbor[0] < GRID_WIDTH and 0 <= neighbor[1] < GRID_HEIGHT and
+                neighbor not in body_without_tail):
+            area = flood_fill_area(neighbor, body_without_tail)
+            if area > best_area:
+                best_area = area
+                best_move = key
+    return best_move
+
 def get_next_move():
     path = a_star_path(snake[0], food, set(snake))
-    if path:
+    if path and is_path_safe(snake, food, path):
         next_step = path[0]
         for key, move in DIRECTIONS.items():
             if (snake[0][0] + move[0], snake[0][1] + move[1]) == next_step:
                 return key
-    return direction  # Default to current direction if no path
+    return safest_move(snake)
 
 clock = pygame.time.Clock()
 running = True
